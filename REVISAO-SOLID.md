@@ -1,7 +1,16 @@
 # Revisão final da atividade
 
-Nome:
-Data:
+## 1. Tabela de Contribuições
+
+| Integrante            | Matrícula | Usuário Git     | Exercícios e funcionalidades |
+| --------------------- | --------- | --------------- | ---------------------------- |
+| Samuel Miguel Barbosa | 2517428   | SamuelBarbosa11 |                              |
+| João Gabriel Rinaldi  | 2510365   | JgRM0           |                              |
+| Rafael Dantas         | 2517979   | r-dantas9       |                              |
+
+---
+
+Data: 24.09.26
 
 ## Como validei a solução
 
