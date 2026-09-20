@@ -1,0 +1,132 @@
+@startuml diagrama-pacotes
+' =============================================================================
+'  Missão Marte Unifor - versão SOLID
+'  Diagrama de pacotes do projeto refatorado
+'
+'  Autor.....: João Gabriel Rinaldi (2510365) - JgRM0
+'  Fonte.....: src/solidexercicio10/
+'  Renderizar: java -jar plantuml.jar -charset UTF-8 docs/uml/diagrama-pacotes.puml
+' =============================================================================
+
+title Missão Marte Unifor — Diagrama de pacotes (solidexercicio10)
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Segoe UI
+skinparam nodesep 40
+skinparam ranksep 60
+skinparam package {
+  BorderColor #33475B
+  BackgroundColor #FAFAFA
+  FontStyle bold
+}
+skinparam class {
+  BorderColor #33475B
+  ArrowColor #33475B
+  BackgroundColor #FDFDFD
+}
+skinparam note {
+  BackgroundColor #FFF8E1
+  BorderColor #C8A415
+}
+hide empty members
+hide <<domínio>> circle
+
+package "solidexercicio10" #F4F7FB {
+
+  class Main <<entry point>> {
+    +{static} main(args : String[]) : void
+  }
+
+  package "service" {
+    class JogoService {
+      +executarLoop(scanner : Scanner) : void
+    }
+  }
+
+  package "presentation" {
+    class MapaRenderer {
+      +desenhar(missao, score, piloto, limites) : void
+      .. 3 sobrecargas ..
+    }
+  }
+
+  package "repository" {
+    interface RankingRepository <<contrato>> {
+      +salvar(nome, pontuacao) : void
+      +salvar(nome, pontuacao, dificuldade,
+            passageiros, tempo) : void
+      +listar() : List<RankingEntry>
+      +limpar() : void
+    }
+    class RankingService <<detalhe de persistência>> {
+      -arquivo : Path
+    }
+    class RankingEntry <<DTO>>
+  }
+
+  package "model" {
+    class "EntidadeMapa · Passageiro · Professor\nEngenheiro · Astronauta · Nave\nAsteroide · Inimigo · Missao\nDificuldade · Posicionavel · Movel" as ModelTypes <<domínio>>
+  }
+}
+
+' ======================= composição das dependências (Main) ==================
+Main ..> JogoService    : cria e inicia
+Main ..> RankingService : instancia
+
+' ========================= dependências do serviço ===========================
+JogoService ..> RankingRepository : depende só do contrato
+JogoService ..> MapaRenderer      : delega a exibição
+JogoService ..> ModelTypes        : usa as entidades
+JogoService ..> RankingEntry      : lê o ranking
+
+' ============================ demais dependências ============================
+MapaRenderer   ..> ModelTypes : lê o estado da missão
+RankingRepository ..> ModelTypes
+RankingService    ..> ModelTypes
+RankingEntry      ..> ModelTypes : usa Dificuldade
+
+RankingRepository <|.. RankingService
+
+' ==================================== notas ==================================
+note right of Main
+  **Composition root** — único ponto do programa
+  que conhece a implementação concreta
+  ""RankingService"". O ""Main"" declara a variável
+  pelo tipo do contrato:
+
+  ""RankingRepository repo = new RankingService(arquivo);""
+
+  Trocar o arquivo por um banco de dados ou por
+  uma versão em memória altera só esta linha.
+end note
+
+note right of RankingRepository
+  **DIP** — ""JogoService"" importa
+  ""repository.RankingRepository"", mas **não**
+  importa ""RankingService"". O serviço nunca
+  sabe que o ranking vive em um arquivo texto.
+end note
+
+note bottom of ModelTypes
+  **Domínio sem dependências de saída** — nenhuma classe de
+  ""model"" importa ""service"", ""presentation"" ou ""repository"":
+  apenas ""java.util"". Por isso as entidades podem ser testadas
+  isoladamente, sem console e sem disco.
+end note
+
+legend bottom
+  **Direção das dependências**
+  ====
+  O fluxo aponta sempre para dentro:
+  ""Main"" → ""service"" → (""presentation"", ""repository"") → ""model""
+
+  ""model"" é a camada mais estável: não depende de ninguém.
+  ""RankingService"" é a mais volátil: só o ""Main"" a conhece.
+
+  Seta tracejada com ponta vazada (..|>) = realização de interface.
+  Seta tracejada com ponta simples (..>) = dependência por import/uso.
+endlegend
+
+@enduml
