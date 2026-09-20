@@ -94,6 +94,17 @@ Proposta: remover implements Movel de Nave, ou fazer moverComLimites validar os 
 Prioridade: média
 ```
 
+### Contrato do ranking com operação sem cliente
+
+```text
+Local: repository.RankingRepository, repository.RankingService e JogoService
+Princípio relacionado: DIP
+Observação: a inversão está correta. JogoService recebe RankingRepository pelo construtor, nunca importa RankingService, e o Main é o único ponto que escolhe a implementação concreta. O que destoa é o tamanho do contrato: RankingRepository declara duas sobrecargas de salvar, e a de dois argumentos não é usada por ninguém. Seu único chamador seria JogoService.registrarPontuacao, que por sua vez também não é invocado em lugar nenhum; o mesmo vale para JogoService.listarRanking.
+Impacto: trocar a persistência por banco ou memória continua barato, mas toda nova implementação do contrato é obrigada a implementar uma operação que nenhum cliente chama, e os dois métodos mortos no serviço sugerem um uso que não existe.
+Proposta: manter a inversão como está e remover a sobrecarga salvar(nome, pontuacao) do contrato, junto com registrarPontuacao e listarRanking no serviço, deixando na interface apenas o que os clientes realmente usam.
+Prioridade: baixa
+```
+
 ## Decisões com as quais concordo
 
 Manter `RankingRepository` como abstração foi uma boa decisão. `JogoService` não

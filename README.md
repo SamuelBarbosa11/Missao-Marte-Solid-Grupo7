@@ -138,6 +138,95 @@ O `-charset UTF-8` é necessário porque os diagramas contêm acentuação; sem 
 o PlantUML assume a codificação padrão do sistema (Cp1252 no Windows) e os
 rótulos saem corrompidos.
 
+## Alterações realizadas
+
+A versão original concentrava o jogo inteiro em `src/exercicio10/Main.java`:
+557 linhas e mais de vinte métodos estáticos, indo do menu até a gravação do
+arquivo de ranking. Na versão refatorada esse conteúdo foi distribuído em cinco
+pacotes e o `Main` ficou com 23 linhas.
+
+| Responsabilidade               | Antes (`exercicio10`)                          | Depois (`solidexercicio10`)              |
+| ------------------------------ | ---------------------------------------------- | ---------------------------------------- |
+| Menu e fluxo da partida        | `Main.exibirMenu`, `Main.jogarPartida`         | `service.JogoService`                    |
+| Desenho do mapa                | `Main.desenharMapa`                            | `presentation.MapaRenderer`              |
+| Leitura e gravação do ranking  | `Main.loadRanking`, `saveRanking`, `parseRankingJson` | `repository.RankingService`       |
+| Entidades e regras do domínio  | classes soltas no pacote `exercicio10`         | pacote `model`                           |
+| Composição das dependências    | não existia                                    | `Main`                                   |
+
+### Mudanças no domínio
+
+- **`EntidadeMapa` criada como raiz abstrata.** Antes, `Nave`, `Asteroide`,
+  `Inimigo` e `Passageiro` repetiam cada um os próprios campos `x` e `y` com os
+  mesmos getters.
+
+- **`Passageiro` passou de concreta para abstrata**, com `getPontuacao()`
+  abstrato. Antes a base devolvia 10 pontos por padrão e `Professor`
+  sobrescrevia com o mesmo valor. As pontuações atuais são Professor 15,
+  Engenheiro 20 e Astronauta 10.
+
+- **`Posicionavel` e `Movel` introduzidas**, separando o que ocupa uma posição
+  do que se desloca.
+
+- **O desenho do mapa deixou de depender de `instanceof`.** O `desenharMapa`
+  original escolhia o símbolo testando o tipo do objeto:
+
+  ```java
+  if (p instanceof Engenheiro) {
+      symbol = 'E';
+  } else if (p instanceof Astronauta) {
+      symbol = 'T';
+  } else {
+      symbol = 'P';
+  }
+  ```
+
+  Agora cada entidade responde `getSimbolo()` e o `MapaRenderer` apenas
+  pergunta. Um tipo novo de entidade não exige tocar na renderização.
+
+- **A colisão saiu das entidades e foi para a missão.** `Asteroide.colideCom(Nave)`
+  e `Inimigo.colideCom(Nave)` foram substituídos por `Missao.verificaColisao()`,
+  deixando os perigos como entidades de posição e concentrando a regra em quem
+  conhece o tabuleiro.
+
+- **`Missao.moverInimigos` recebe os limites do mapa** e impede que os inimigos
+  deixem a área jogável. Detalhes e medições em [REVISAO-SOLID.md](REVISAO-SOLID.md).
+
+### Mudanças de comportamento visíveis
+
+- Os símbolos do mapa passaram de caracteres ASCII (`@`, `P`, `E`, `T`, `#`)
+  para emojis.
+- O eixo vertical foi invertido internamente: o mapa é desenhado de `maxY` para
+  `minY` e `w` passou a aumentar `y`. Na tela o efeito é o mesmo de antes —
+  `w` sobe.
+- O arquivo de ranking passou de `ranking.json` para
+  `ranking-solid-exercicio10.json`.
+- Foi acrescentada a validação de tamanho mínimo do mapa por dificuldade.
+
+## Decisões de projeto
+
+- **Manter a estrutura de camadas sugerida pelo tutorial.** O projeto é pequeno
+  e a divisão `Main` / `service` / `model` / `presentation` / `repository` já
+  separa os motivos de mudança sem introduzir indireção que ninguém usaria.
+  Criar mais abstrações aqui custaria mais do que resolveria.
+
+- **Persistência atrás de uma interface.** `JogoService` recebe
+  `RankingRepository` no construtor e nunca conhece `RankingService`. Trocar o
+  arquivo por um banco de dados ou por uma versão em memória altera apenas a
+  linha de composição no `Main`, e o serviço pode ser testado com um
+  repositório falso.
+
+- **O símbolo pertence à entidade, não ao renderizador.** Foi o que permitiu
+  eliminar a cadeia de `instanceof` e manter a renderização fechada para
+  modificação.
+
+- **Os limites do mapa ficam na `Missao`, não na entidade que se move.**
+  `Movel.mover(dx, dy)` continua sendo um deslocamento relativo puro; quem
+  conhece as bordas do tabuleiro é a missão.
+
+- **Ajustar o mapa em vez de recusar a entrada.** Quando o jogador informa um
+  tamanho menor que o necessário para a dificuldade, o programa avisa e usa o
+  mínimo viável, em vez de encerrar com `IllegalStateException`.
+
 ## Estrutura do repositório
 
 ```text
@@ -161,10 +250,7 @@ run.cmd                   script de compilação e execução no Windows
 
 ## Pendências desta entrega
 
-Seções exigidas pelo enunciado que ainda precisam ser preenchidas pelos
-responsáveis:
+Seção exigida pelo enunciado que ainda precisa ser preenchida:
 
-- **Alterações realizadas e decisões de projeto** — visão geral da refatoração,
-  além das decisões de modelagem já descritas acima (Samuel).
 - **Limitações que permanecem** e consolidação das evidências de teste, a
   partir do que já está em [REVISAO-SOLID.md](REVISAO-SOLID.md) (Rafael).
