@@ -20,7 +20,7 @@ Registre os comandos executados e os fluxos testados:
 - [x] compilação da versão refatorada com `javac -encoding UTF-8 -d out`;
 - [x] início de uma missão e renderização do mapa;
 - [x] aborto voluntário da missão e retorno ao menu;
-- [ ] movimentação, embarque e conclusão da missão;
+- [x] movimentação, embarque e conclusão da missão;
 - [x] consulta e reset do ranking;
 - [x] execução pelo `run.cmd start` e saída imediata;
 - [x] teste de mapa insuficiente na dificuldade difícil, corrigido com tamanho mínimo automático.
