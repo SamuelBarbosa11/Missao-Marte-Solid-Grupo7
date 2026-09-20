@@ -65,7 +65,7 @@ package "solidexercicio10.model" {
     +adicionarInimigo(inimigo : Inimigo) : void
     +passagemNaPosicao() : Passageiro
     +embarcarPassageiroNaPosicao() : boolean
-    +moverInimigos() : void
+    +moverInimigos(minX : int, maxX : int, minY : int, maxY : int) : void
     +verificaColisao() : boolean
     +todosEmbarcados() : boolean
     +getNave() : Nave

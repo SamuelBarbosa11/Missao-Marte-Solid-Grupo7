@@ -23,9 +23,21 @@ Registre os comandos executados e os fluxos testados:
 - [x] movimentação, embarque e conclusão da missão;
 - [x] consulta e reset do ranking;
 - [x] execução pelo `run.cmd start` e saída imediata;
-- [x] teste de mapa insuficiente na dificuldade difícil, corrigido com tamanho mínimo automático.
+- [x] teste de mapa insuficiente na dificuldade difícil, corrigido com tamanho mínimo automático;
+- [x] teste de limites dos inimigos: 20.000 rodadas com 3 inimigos em um mapa de -5 a 5, comparando a versão anterior e a corrigida. Antes: 59.912 posições fora do mapa e um inimigo a 159 casas da área jogável. Depois: 0 posições fora do mapa.
 
 ## Achados da revisão
+
+### Inimigos saindo dos limites do mapa (corrigido)
+
+```text
+Local: Missao.moverInimigos e JogoService (chamada do movimento)
+Princípio relacionado: preservação de comportamento na refatoração
+Observação: o método sorteava o deslocamento e chamava inimigo.mover(dx, dy) sem consultar os limites do mapa. O código original do exercicio10 recebia minX, maxX, minY e maxY e bloqueava o passo que ultrapassasse a borda.
+Impacto: os inimigos deixavam a área jogável nas primeiras rodadas e nunca retornavam, de modo que a missão perdia os perigos móveis e ficava mais fácil do que o previsto pela dificuldade escolhida.
+Proposta: devolver os limites à assinatura de moverInimigos e zerar o deslocamento que ultrapassaria a borda, mantendo o sorteio aleatório como estava.
+Prioridade: alta
+```
 
 ### Mapa pequeno e posições insuficientes
 
@@ -90,6 +102,21 @@ a persistência e criar testes com um repositório em memória.
 
 ## Decisões com as quais não concordo
 
+A principal discordância é com o `moverInimigos()` proposto pelo tutorial em
+`src/README.md`. A versão do tutorial sorteia o deslocamento e chama
+`inimigo.mover(dx, dy)` sem consultar os limites do mapa, enquanto o código
+original do `exercicio10` recebia `minX`, `maxX`, `minY` e `maxY` e bloqueava o
+passo que ultrapassasse a borda. Seguir o tutorial removeu essa proteção, e a
+consequência é mensurável: no teste de 20.000 rodadas registrado acima, a
+versão do tutorial acumulou 59.912 posições fora do mapa e levou um inimigo a
+159 casas da área jogável. Como os inimigos nunca retornam, a partida perde os
+perigos móveis logo no início.
+
+O ponto não é de estilo, e sim de objetivo da atividade: a refatoração deve
+preservar o comportamento da aplicação, e neste trecho ela não preservou. A
+simplificação da assinatura deixou o método mais curto, mas transferiu para
+lugar nenhum uma regra que o domínio precisava manter.
+
 A geração aleatória da missão ainda fica dentro de `JogoService`. Para o
 projeto atual isso evita abstrações desnecessárias, mas eu a extrairia para uma
 `MissaoFactory` caso surgissem mais mapas, cenários ou regras de distribuição.
@@ -101,3 +128,11 @@ Foi implementada a validação do tamanho mínimo do mapa em
 1 terminava com `IllegalStateException` por falta de posições livres. Depois,
 o programa calcula o mínimo necessário por dificuldade, informa o ajuste e
 continua a execução normalmente.
+
+Também foi corrigido o escape dos inimigos. `Missao.moverInimigos` passou a
+receber os limites do mapa e a zerar o deslocamento que ultrapassaria a borda;
+o sorteio aleatório permanece o mesmo. Depois da correção, o mesmo teste de
+20.000 rodadas registrou zero posições fora do mapa. Os limites ficaram na
+`Missao`, e não dentro de `Inimigo.mover`, para que `Movel.mover(dx, dy)`
+continue sendo um deslocamento relativo puro: quem conhece o tabuleiro é a
+missão, não a entidade que se desloca.
