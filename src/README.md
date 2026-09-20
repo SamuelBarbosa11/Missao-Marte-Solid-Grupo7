@@ -1135,17 +1135,45 @@ public class Missao {
 
 ## Compilação e execução
 
-Execute os comandos abaixo na raiz do projeto. O primeiro comando compila a
-versão inicial; o segundo compila a versão refatorada depois que o aluno criar
-os arquivos do tutorial:
+Execute na raiz do projeto. A versão simples usa o script `run.cmd` e inicia
+toda a compilação e execução com um único comando:
+
+cmd:
+
+```cmd
+run start
+```
+
+O script configura o terminal para UTF-8, compila apenas `solidexercicio10` e
+inicia a aplicação. Para executar os comandos completos manualmente:
+
+cmd:
+
+```cmd
+if not exist out mkdir out
+
+chcp 65001
+
+javac -encoding UTF-8 -d out ^
+  src\solidexercicio10\*.java ^
+  src\solidexercicio10\model\*.java ^
+  src\solidexercicio10\presentation\*.java ^
+  src\solidexercicio10\repository\*.java ^
+  src\solidexercicio10\service\*.java
+
+java -Dfile.encoding=UTF-8 -cp out solidexercicio10.Main
+```
+
+powershell:
 
 ```powershell
 New-Item -ItemType Directory -Force -Path out | Out-Null
-javac -d out src/exercicio10/*.java
-java -cp out exercicio10.Main
 
-javac -d out (Get-ChildItem -Recurse -Filter *.java src/solidexercicio10 | ForEach-Object FullName)
-java -cp out solidexercicio10.Main
+chcp 65001
+
+javac -encoding UTF-8 -d out (Get-ChildItem -Recurse -Filter *.java src\solidexercicio10 | ForEach-Object FullName)
+
+java -Dfile.encoding=UTF-8 -cp out solidexercicio10.Main
 ```
 
 ## Reflexão final
