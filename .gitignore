@@ -2,10 +2,9 @@
 *.class
 
 # Diretorios de compilacao
-out/
+out*
 bin/
 target/
-src/exer*
 
 # Arquivos locais gerados pelo jogo
 ranking.json
