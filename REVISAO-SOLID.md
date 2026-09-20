@@ -49,6 +49,39 @@ Proposta: manter como está neste escopo; extrair uma MissaoFactory e um serviç
 Prioridade: baixa
 ```
 
+### Criação de passageiros fixa no serviço
+
+```text
+Local: JogoService.posicionarPassageiros e model.Astronauta
+Princípio relacionado: OCP
+Observação: o embarque e a pontuação são polimórficos e aceitam qualquer subtipo de Passageiro, mas a criação continua fixa no serviço: posicionarPassageiros alterna Professor, Engenheiro e Professor por indice % 3. Astronauta existe no modelo, tem pontuação e símbolo próprios e aparece na legenda do mapa, mas nunca é instanciado.
+Impacto: incluir um novo tipo de passageiro exige alterar o fluxo principal, e não apenas estender o domínio; o tipo não utilizado dá falsa impressão de extensibilidade e não é exercitado por nenhum teste.
+Proposta: extrair a criação para uma fábrica (PassageiroFactory) ou receber os tipos disponíveis no construtor do serviço, e incluir Astronauta na distribuição.
+Prioridade: média
+```
+
+### Tipo do passageiro guardado como texto
+
+```text
+Local: model.Passageiro e subclasses
+Princípio relacionado: LSP
+Observação: tornar Passageiro abstrata com getPontuacao() abstrato corrigiu o problema da versão original, em que a base era concreta e devolvia 10 pontos por padrão. Resta um ponto frágil: o campo tipo é uma String recebida pelo construtor e não tem vínculo com a classe real, então nada impede uma subclasse de se declarar com o tipo de outra.
+Impacto: qualquer regra ou relatório que compare getTipo() pode divergir do tipo real do objeto, e a inconsistência só aparece em tempo de execução.
+Proposta: derivar o rótulo da própria classe (getClass().getSimpleName()) ou transformá-lo em método abstrato ao lado de getPontuacao(), eliminando o estado redundante.
+Prioridade: baixa
+```
+
+### Interface Movel sem cliente na Nave
+
+```text
+Local: model.Movel e model.Nave
+Princípio relacionado: ISP
+Observação: a separação entre Posicionavel e Movel é adequada e evita que Asteroide e Passageiro precisem de um mover() vazio. Porém Nave implementa Movel sem que nenhum cliente use esse método: JogoService movimenta a nave apenas por moverComLimites e Missao.moverInimigos chama mover somente nos inimigos. Nave.mover também ignora os limites do mapa.
+Impacto: método público sem cliente amplia a superfície da classe, precisa ser mantido e pode ser chamado por engano, tirando a nave da área jogável.
+Proposta: remover implements Movel de Nave, ou fazer moverComLimites validar os limites e delegar a mover, eliminando a duplicação do cálculo de posição.
+Prioridade: média
+```
+
 ## Decisões com as quais concordo
 
 Manter `RankingRepository` como abstração foi uma boa decisão. `JogoService` não
