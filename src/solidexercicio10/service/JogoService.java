@@ -154,7 +154,7 @@ public class JogoService {
         System.out.println("Comando inválido.");
       }
 
-      missao.moverInimigos();
+      missao.moverInimigos(minX, maxX, minY, maxY);
       if (missao.verificaColisao()) {
         nave.perderVida();
         if (nave.getVidas() > 0) {

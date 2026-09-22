@@ -1,0 +1,213 @@
+@startuml diagrama-classes-model
+' =============================================================================
+'  Missão Marte Unifor - versão SOLID
+'  Diagrama de classes do domínio (pacote solidexercicio10.model)
+'
+'  Autor.....: João Gabriel Rinaldi (2510365) - JgRM0
+'  Fonte.....: src/solidexercicio10/model/
+'  Renderizar: java -jar plantuml.jar -charset UTF-8 docs/uml/diagrama-classes-model.puml
+' =============================================================================
+
+title Missão Marte Unifor — Diagrama de classes do domínio (solidexercicio10.model)
+
+set separator none
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+' layout padrão (splines): mantém cada rótulo de associação colado à sua linha
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Segoe UI
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam class {
+  BorderColor #33475B
+  ArrowColor #33475B
+  BackgroundColor #FDFDFD
+}
+skinparam package {
+  BorderColor #33475B
+  BackgroundColor #FAFAFA
+}
+skinparam note {
+  BackgroundColor #FFF8E1
+  BorderColor #C8A415
+}
+hide empty members
+
+package "solidexercicio10.model" {
+
+  ' ---------------------------------------------------------------- contratos
+  interface Posicionavel {
+    +getX() : int
+    +getY() : int
+  }
+
+  interface Movel {
+    +mover(dx : int, dy : int) : void
+  }
+
+  ' -------------------------------------------------------- raiz da hierarquia
+  abstract class EntidadeMapa {
+    #x : int
+    #y : int
+    --
+    #EntidadeMapa(x : int, y : int)
+    +getX() : int
+    +getY() : int
+    +{abstract} getSimbolo() : String
+  }
+
+  ' ------------------------------------------------------------------- missão
+  class Missao {
+    +Missao(nave : Nave)
+    +adicionarPassageiro(passageiro : Passageiro) : void
+    +adicionarAsteroide(asteroide : Asteroide) : void
+    +adicionarInimigo(inimigo : Inimigo) : void
+    +passagemNaPosicao() : Passageiro
+    +embarcarPassageiroNaPosicao() : boolean
+    +moverInimigos(minX : int, maxX : int, minY : int, maxY : int) : void
+    +verificaColisao() : boolean
+    +todosEmbarcados() : boolean
+    +getNave() : Nave
+    +getPassageiros() : List<Passageiro>
+    +getAsteroides() : List<Asteroide>
+    +getInimigos() : List<Inimigo>
+  }
+
+  ' -------------------------------------------------------------------- nave
+  class Nave {
+    -nome : String
+    -capacidade : int
+    -vidas : int
+    --
+    +Nave(nome : String, x : int, y : int)
+    +Nave(nome : String, x : int, y : int, capacidade : int)
+    +getNome() : String
+    +getVidas() : int
+    +getCapacidade() : int
+    +getPassageiros() : List<Passageiro>
+    +embarcar(passageiro : Passageiro) : void
+    +moverComLimites(comando : char, minX : int, maxX : int, minY : int, maxY : int) : void
+    +mover(dx : int, dy : int) : void
+    +perderVida() : void
+    +getSimbolo() : String
+  }
+
+  ' ------------------------------------------------------------------ perigos
+  class Asteroide {
+    +Asteroide(x : int, y : int)
+    +getSimbolo() : String
+  }
+
+  class Inimigo {
+    +Inimigo(x : int, y : int)
+    +mover(dx : int, dy : int) : void
+    +getSimbolo() : String
+  }
+
+  ' ------------------------------------------------------------- passageiros
+  abstract class Passageiro {
+    -nome : String
+    -tipo : String
+    --
+    #Passageiro(nome : String, tipo : String, x : int, y : int)
+    +getNome() : String
+    +getTipo() : String
+    +{abstract} getPontuacao() : int
+  }
+
+  class Professor {
+    +Professor(nome : String, x : int, y : int)
+    +getPontuacao() : int  <b>15</b>
+    +getSimbolo() : String
+  }
+
+  class Engenheiro {
+    +Engenheiro(nome : String, x : int, y : int)
+    +getPontuacao() : int  <b>20</b>
+    +getSimbolo() : String
+  }
+
+  class Astronauta {
+    +Astronauta(nome : String, x : int, y : int)
+    +getPontuacao() : int  <b>10</b>
+    +getSimbolo() : String
+  }
+
+  ' ------------------------------------------------------------- dificuldade
+  enum Dificuldade {
+    FACIL
+    MEDIO
+    DIFICIL
+    --
+    +{static} deString(valor : String) : Dificuldade
+  }
+}
+
+' ============================ herança e realização ===========================
+Posicionavel <|.. EntidadeMapa
+Movel        <|.. Nave
+Movel        <|.. Inimigo
+
+EntidadeMapa <|-- Nave
+EntidadeMapa <|-- Asteroide
+EntidadeMapa <|-- Inimigo
+EntidadeMapa <|-- Passageiro
+
+Passageiro <|-- Professor
+Passageiro <|-- Engenheiro
+Passageiro <|-- Astronauta
+
+' ================================ associações ================================
+Missao "1" o--> "1"    Nave       : nave
+Missao "1" *--> "0..*" Passageiro : aguardando resgate
+Missao "1" *--> "0..*" Asteroide  : asteroides
+Missao "1" *--> "0..*" Inimigo    : inimigos
+Nave   "1" o--> "0..*" Passageiro : a bordo
+
+' ==================================== notas ==================================
+note top of Movel
+  **ISP** — contratos separados por capacidade:
+  ""Posicionavel"" para tudo que ocupa uma célula
+  e ""Movel"" apenas para ""Nave"" e ""Inimigo"".
+  ""Asteroide"" e ""Passageiro"" ficam parados e não
+  precisam implementar um ""mover()"" vazio.
+end note
+
+note right of EntidadeMapa
+  **OCP** — cada entidade sabe desenhar a si mesma
+  em ""getSimbolo()"". O ""MapaRenderer"" pergunta o
+  símbolo à entidade, então um novo tipo não
+  obriga a alterar a renderização.
+end note
+
+note right of Passageiro
+  **LSP** — ""Passageiro"" é abstrata e ""getPontuacao()""
+  não tem implementação padrão: toda subclasse define
+  a sua. No código original a base era concreta e
+  devolvia 10, fingindo ser um passageiro inexistente.
+end note
+
+legend bottom
+  **Convenções adotadas neste diagrama**
+  ====
+  **Composição (*<U+2011><U+2011>)** — a ""Missao"" cria e é dona das listas de passageiros,
+  asteroides e inimigos: elas nascem e morrem junto com a missão.
+
+  **Agregação (o<U+2011><U+2011>)** — a ""Nave"" é construída pelo ""JogoService"" e injetada
+  no construtor da ""Missao"", que não controla o ciclo de vida dela.
+
+  **Transferência de posse** — ao embarcar, o ""Passageiro"" sai da lista da
+  ""Missao"" e entra na da ""Nave"". As duas pontas existem no diagrama, mas
+  nunca contêm o mesmo objeto ao mesmo tempo.
+
+  **Multiplicidades** — variam com a dificuldade: 4 passageiros / 2 asteroides /
+  2 inimigos no fácil, 5 / 2 / 2 no médio e 6 / 3 / 3 no difícil. A capacidade
+  da ""Nave"" é definida como o total de passageiros da partida.
+
+  **""Dificuldade""** não se associa às demais entidades: é consumida por
+  ""JogoService"" (pontuação inicial e quantidades) e por ""RankingEntry"".
+  Fica em ""model"" por ser vocabulário do domínio, não regra de fluxo.
+endlegend
+
+@enduml

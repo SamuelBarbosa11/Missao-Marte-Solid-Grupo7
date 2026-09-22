@@ -52,10 +52,16 @@ public class Missao {
     return true;
   }
 
-  public void moverInimigos() {
+  public void moverInimigos(int minX, int maxX, int minY, int maxY) {
     for (Inimigo inimigo : inimigos) {
       int dx = (int) (Math.random() * 3) - 1;
       int dy = (int) (Math.random() * 3) - 1;
+      if (inimigo.getX() + dx < minX || inimigo.getX() + dx > maxX) {
+        dx = 0;
+      }
+      if (inimigo.getY() + dy < minY || inimigo.getY() + dy > maxY) {
+        dy = 0;
+      }
       inimigo.mover(dx, dy);
     }
   }
