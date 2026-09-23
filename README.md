@@ -34,6 +34,13 @@ javac -encoding UTF-8 -d out src\solidexercicio10\*.java src\solidexercicio10\mo
 java -Dfile.encoding=UTF-8 -cp out solidexercicio10.Main
 ```
 
+No Linux:
+
+```bash
+javac -encoding UTF-8 -d out src/solidexercicio10/*.java src/solidexercicio10/model/*.java src/solidexercicio10/presentation/*.java src/solidexercicio10/repository/*.java src/solidexercicio10/service/*.java
+java -Dfile.encoding=UTF-8 -cp out solidexercicio10.Main
+```
+
 Para comparar com a versão original:
 
 ```cmd
