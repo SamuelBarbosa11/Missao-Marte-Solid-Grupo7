@@ -24,7 +24,26 @@ Registre os comandos executados e os fluxos testados:
 - [x] consulta e reset do ranking;
 - [x] execução pelo `run.cmd start` e saída imediata;
 - [x] teste de mapa insuficiente na dificuldade difícil, corrigido com tamanho mínimo automático;
-- [x] teste de limites dos inimigos: 20.000 rodadas com 3 inimigos em um mapa de -5 a 5, comparando a versão anterior e a corrigida. Antes: 59.912 posições fora do mapa e um inimigo a 159 casas da área jogável. Depois: 0 posições fora do mapa.
+- [x] teste de limites dos inimigos: 20.000 rodadas com 3 inimigos em um mapa de -5 a 5, comparando a versão anterior e a corrigida. Antes: 59.912 posições fora do mapa e um inimigo a 159 casas da área jogável. Depois: 0 posições fora do mapa. O teste está versionado em [`test/solidexercicio10/TesteLimitesInimigos.java`](test/solidexercicio10/TesteLimitesInimigos.java) e pode ser repetido com os comandos da seção "Como executar o teste de limites"; como o sorteio é aleatório, os números do "antes" variam a cada execução (sempre acima de 59.000 posições fora do mapa), enquanto o "depois" é sempre 0;
+- [x] reteste do aborto com `q` e de comandos inválidos após a correção: seis partidas no fácil com mapa mínimo (3x3, todas as células ocupadas) enviando três comandos inválidos e `q`, sem nenhuma colisão registrada depois do comando;
+- [x] estatísticas de vitória com recorde: ranking vazio (sem recorde exibido), pontuação acima do primeiro colocado ("Novo recorde absoluto") e pontuação abaixo ("Recorde atual a ser batido"), além da mensagem de entrada no Top 5;
+- [x] leitura do ranking com linhas malformadas (nome contendo `|` e pontuação não numérica): as linhas inválidas são ignoradas e o ranking válido continua sendo exibido.
+
+### Como executar o teste de limites
+
+```bash
+javac -encoding UTF-8 -d out-teste src/solidexercicio10/model/*.java test/solidexercicio10/TesteLimitesInimigos.java
+java -Dfile.encoding=UTF-8 -cp out-teste solidexercicio10.TesteLimitesInimigos
+```
+
+Saída de uma execução:
+
+```text
+Rodadas: 20000 | Inimigos: 3 | Mapa: -5 a 5
+Antes  (tutorial):  59592 posições fora do mapa, maior distância da borda: 258
+Depois (corrigido): 0 posições fora do mapa, maior distância da borda: 0
+OK: nenhum inimigo saiu do mapa na versão corrigida.
+```
 
 ## Achados da revisão
 
@@ -37,6 +56,50 @@ Observação: o método sorteava o deslocamento e chamava inimigo.mover(dx, dy) 
 Impacto: os inimigos deixavam a área jogável nas primeiras rodadas e nunca retornavam, de modo que a missão perdia os perigos móveis e ficava mais fácil do que o previsto pela dificuldade escolhida.
 Proposta: devolver os limites à assinatura de moverInimigos e zerar o deslocamento que ultrapassaria a borda, mantendo o sorteio aleatório como estava.
 Prioridade: alta
+```
+
+### Rodada continuava depois do aborto (corrigido)
+
+```text
+Local: JogoService.jogarPartida
+Princípio relacionado: preservação de comportamento na refatoração
+Observação: ao receber q, o código marcava partidaAtiva = false, mas não saía do laço naquela rodada. Os inimigos ainda se moviam e a colisão ainda era verificada, então o jogador via "Missão abortada pelo piloto." seguido de "Alerta! Colisão detectada!". Com comando inválido acontecia algo parecido: o turno era consumido e os inimigos andavam. O original do exercicio10 usava break no q e continue no comando inválido.
+Impacto: mensagem contraditória na tela e perda de vida por um comando que não deveria gerar turno. O teste manual de aborto passava porque o retorno ao menu funcionava; o defeito só aparecia quando havia um inimigo ao lado da nave.
+Proposta: restaurar o break no q e o continue no comando inválido, como no original.
+Prioridade: alta
+```
+
+### Recorde removido das estatísticas (corrigido)
+
+```text
+Local: JogoService.exibirEstatisticas
+Princípio relacionado: preservação de comportamento na refatoração
+Observação: o exercicio10 exibia, ao fim da vitória, o recorde atual a ser batido ou o aviso de novo recorde, e parabenizava o piloto que entrava no Top 5. O enunciado do Exercício 10 lista os recordes entre os requisitos. A versão do tutorial passou a mostrar apenas pontuação, movimentos, tempo e passageiros.
+Impacto: uma funcionalidade exigida do jogo original deixou de existir sem registro.
+Proposta: consultar o ranking pelo RankingRepository antes de salvar a partida e passar a lista para exibirEstatisticas, que volta a informar o recorde; a mensagem de Top 5 é exibida quando a pontuação supera o quinto colocado ou quando o ranking tem menos de cinco registros. O serviço continua dependendo só do contrato.
+Prioridade: média
+```
+
+### Leitura do ranking frágil a linhas malformadas (corrigido)
+
+```text
+Local: repository.RankingService.listar
+Princípio relacionado: SRP
+Observação: o arquivo usa | como separador, mas o nome do piloto não é validado. Um nome como "Ana|B" grava uma linha com sete campos, e a leitura seguinte chamava Integer.parseInt sobre texto, encerrando o programa com NumberFormatException.
+Impacto: uma única partida com nome incomum inutilizava a opção de ranking e, depois da restauração do recorde, também a tela de vitória.
+Proposta: como o formato do arquivo é responsabilidade exclusiva do repositório, a tolerância fica nele: linhas que não têm exatamente seis campos ou que não convertem para número são ignoradas. O serviço não precisou mudar.
+Prioridade: média
+```
+
+### Código sem uso na apresentação e no modelo
+
+```text
+Local: MapaRenderer.desenhar (sobrecargas de 1 e 3 argumentos), Nave(nome, x, y) e o aviso final de JogoService.posicionarPassageiros
+Princípio relacionado: ISP
+Observação: das três sobrecargas de desenhar, só a de sete argumentos é chamada; as outras duas fixam o mapa em -2 a 2, o que não corresponde a nenhum tamanho real de partida. O construtor de Nave sem capacidade também não é usado. Em posicionarPassageiros, o bloco que avisa "o mapa atual não suporta todos os passageiros" nunca executa, porque o while anterior só termina quando a quantidade foi atingida (se faltar espaço, sortearPosicaoLivre lança exceção antes).
+Impacto: métodos públicos sem cliente ampliam a superfície das classes e sugerem usos que não existem; a sobrecarga com limites fixos, se chamada, desenharia um mapa diferente do jogado. O aviso inalcançável dá a impressão de um tratamento de erro que não acontece.
+Proposta: remover as duas sobrecargas, o construtor sem capacidade e o bloco inalcançável. Foram mantidos nesta entrega por virem do código de referência do tutorial, e registrados aqui para a próxima iteração.
+Prioridade: baixa
 ```
 
 ### Mapa pequeno e posições insuficientes
@@ -147,3 +210,12 @@ o sorteio aleatório permanece o mesmo. Depois da correção, o mesmo teste de
 `Missao`, e não dentro de `Inimigo.mover`, para que `Movel.mover(dx, dy)`
 continue sendo um deslocamento relativo puro: quem conhece o tabuleiro é a
 missão, não a entidade que se desloca.
+
+Por fim, foram restaurados dois comportamentos do original que a versão do
+tutorial havia perdido. O comando `q` volta a encerrar a rodada imediatamente e
+o comando inválido volta a não consumir turno, eliminando a colisão exibida
+depois do aborto. As estatísticas de vitória voltam a mostrar o recorde e a
+entrada no Top 5; para isso, `JogoService` consulta `RankingRepository.listar()`
+antes de salvar a partida, sem passar a conhecer o arquivo. A leitura do
+ranking também passou a ignorar linhas malformadas em vez de encerrar o
+programa.
