@@ -1,5 +1,6 @@
 package solidexercicio10.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -387,22 +388,22 @@ public class JogoService {
     int maxY,
     Nave nave
   ) {
-    int tentativasMaximas = Math.max(
-      20,
-      (maxX - minX + 1) * (maxY - minY + 1) * 2
-    );
-    for (int tentativa = 0; tentativa < tentativasMaximas; tentativa++) {
-      int x = random.nextInt(maxX - minX + 1) + minX;
-      int y = random.nextInt(maxY - minY + 1) + minY;
-      if (
-        !posicaoOcupada(missao, x, y) && !(x == nave.getX() && y == nave.getY())
-      ) {
-        return new int[] { x, y };
+    List<int[]> livres = new ArrayList<>();
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
+        if (
+          !posicaoOcupada(missao, x, y) && !(x == nave.getX() && y == nave.getY())
+        ) {
+          livres.add(new int[] { x, y });
+        }
       }
     }
-    throw new IllegalStateException(
-      "O mapa nao possui posicoes livres suficientes"
-    );
+    if (livres.isEmpty()) {
+      throw new IllegalStateException(
+        "O mapa nao possui posicoes livres suficientes"
+      );
+    }
+    return livres.get(random.nextInt(livres.size()));
   }
 
   private boolean posicaoOcupada(Missao missao, int x, int y) {
