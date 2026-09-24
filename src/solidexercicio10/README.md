@@ -111,7 +111,10 @@ herdada do nome definido no tutorial, o formato atual é texto delimitado por
 missão. O arquivo é criado na raiz do projeto após uma vitória.
 
 O ranking é ordenado pela pontuação, exibido no menu como Top 5 e pode ser
-apagado pela opção de reset.
+apagado pela opção de reset. Ao fim de uma vitória, as estatísticas mostram o
+recorde atual a ser batido (ou avisam que um novo recorde foi estabelecido) e
+parabenizam o piloto que entrou no Top 5, como no jogo original. Linhas
+malformadas no arquivo são ignoradas na leitura.
 
 ## Compilação e execução
 
@@ -149,9 +152,16 @@ java -Dfile.encoding=UTF-8 -cp out solidexercicio10.Main
 2. Iniciar uma missão nos três níveis de dificuldade.
 3. Informar um mapa pequeno e confirmar o ajuste automático.
 4. Movimentar a nave, embarcar passageiros e retornar à origem.
-5. Confirmar as estatísticas e o salvamento do ranking após a vitória.
+5. Confirmar as estatísticas, o recorde e o salvamento do ranking após a
+   vitória.
 6. Consultar e resetar o ranking.
-7. Abortar uma missão com `q` e confirmar o retorno ao menu.
+7. Abortar uma missão com `q` e confirmar o retorno imediato ao menu, sem
+   nenhuma colisão depois da mensagem de aborto.
+8. Digitar um comando inválido e confirmar que os inimigos não se movem.
+
+O teste automatizado dos limites dos inimigos fica em
+`test/solidexercicio10/TesteLimitesInimigos.java`; os comandos estão no
+`README.md` da raiz.
 
 Para a revisão consolidada da atividade, consulte `REVISAO-SOLID.md` na raiz
 do projeto. A versão original continua disponível em `src/exercicio10`.
