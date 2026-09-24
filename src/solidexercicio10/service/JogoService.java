@@ -126,7 +126,7 @@ public class JogoService {
       char cmd = entrada.charAt(0);
       if (cmd == 'q') {
         System.out.println("Missão abortada pelo piloto.");
-        partidaAtiva = false;
+        break;
       } else if (cmd == 'c') {
         Passageiro passageiro = missao.passagemNaPosicao();
         if (passageiro == null) {
@@ -152,6 +152,7 @@ public class JogoService {
         movimentos++;
       } else {
         System.out.println("Comando inválido.");
+        continue;
       }
 
       missao.moverInimigos(minX, maxX, minY, maxY);
