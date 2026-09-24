@@ -1,0 +1,177 @@
+EVIDÊNCIA 02 - Aborto (q) e comando inválido não movem os inimigos
+O que foi verificado: no mapa 3x3 lotado, depois de "Comando inválido." ou "Missão abortada pelo piloto." não pode haver colisão (os inimigos não deveriam se mover).
+Versão: ANTES = commit 687b5f1; DEPOIS = atual (working tree, HEAD ac75ffb)
+Gerado em: 24/09/2026 18:51:49
+Entradas enviadas: 1, Teste, facil, 1, <Enter>, x, x, x, q, 4
+========================================================================
+
+--- ANTES (commit 687b5f1) ---
+Execuções até reproduzir o bug: 1. Trecho: "Comando inválido." seguido de "Alerta! Colisão detectada! Vidas restantes: 2".
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Teste
+Escolha a Dificuldade (facil/medio/dificil): facil
+Tamanho do mapa (ex: 5): 1
+
+Iniciando missão na dificuldade FACIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 🎓 🎓 👾
+  0| ☄️ 🚀 🔧
+ -1| ☄️ 👾 🎓
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+Alerta! Colisão detectada! Vidas restantes: 2
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 🎓 🎓  .
+  0| ☄️ 🚀 🔧
+ -1| ☄️  . 🎓
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 2 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+Alerta! Colisão detectada! Vidas restantes: 1
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 🎓 🎓  .
+  0| ☄️ 🚀 🔧
+ -1| ☄️  . 🎓
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 1 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 🎓 🎓 👾
+  0| ☄️ 🚀 🔧
+ -1| ☄️  . 🎓
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 1 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): q
+Missão abortada pelo piloto.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!
+
+--- DEPOIS (versão atual) --- primeira execução:
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Teste
+Escolha a Dificuldade (facil/medio/dificil): facil
+Tamanho do mapa (ex: 5): 1
+
+Iniciando missão na dificuldade FACIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 👾 🎓 🔧
+  0| 🎓 🚀 ☄️
+ -1| ☄️ 🎓 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 👾 🎓 🔧
+  0| 🎓 🚀 ☄️
+ -1| ☄️ 🎓 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 👾 🎓 🔧
+  0| 🎓 🚀 ☄️
+ -1| ☄️ 🎓 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): x
+Comando inválido.
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 👾 🎓 🔧
+  0| 🎓 🚀 ☄️
+ -1| ☄️ 🎓 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): q
+Missão abortada pelo piloto.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!
+
+--- Resumo ---
+ANTES: 1 execução(ões) até aparecer colisão logo após comando ignorado.
+DEPOIS: 20 execuções, 0 com colisão, 0 encerradas por exceção.

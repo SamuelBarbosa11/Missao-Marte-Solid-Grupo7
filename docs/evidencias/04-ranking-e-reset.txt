@@ -1,0 +1,53 @@
+EVIDÊNCIA 04 - Consulta e reset do ranking
+O que foi verificado: o ranking gravado na evidência 01 é exibido, resetado e, na nova consulta, aparece "Nenhum registro de ranking ainda.".
+Versão: atual (working tree, HEAD ac75ffb), mesma pasta de execução da evidência 01
+Gerado em: 24/09/2026 18:53:39
+Entradas enviadas: 2, 3, 2, 4
+========================================================================
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 2
+
+=== TOP 5 DO RANKING ===
+1. Robo-2 | Pontos: 81 | Dif.: FACIL | Passageiros: 4 | 24/09/2026 18:51 | Tempo: 0s
+2. Robo-1 | Pontos: 79 | Dif.: FACIL | Passageiros: 4 | 24/09/2026 18:51 | Tempo: 0s
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 3
+Histórico de ranking removido.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 2
+Nenhum registro de ranking ainda.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!

@@ -1,0 +1,66 @@
+EVIDÊNCIA 05 - Ranking com linhas malformadas
+O que foi verificado: linhas malformadas do arquivo de ranking são ignoradas (só Carla aparece); na versão antiga a mesma leitura derruba o programa.
+Versão: DEPOIS = atual (working tree, HEAD ac75ffb); ANTES = commit 687b5f1 (stdout + stderr)
+Gerado em: 24/09/2026 18:53:39
+Entradas enviadas: 2, 4
+========================================================================
+
+Conteúdo de ranking-solid-exercicio10.json:
+Ana|B|10|MEDIO|4|01/01/2026 10:00|7
+Beto|abc|MEDIO|4|01/01/2026 10:00|7
+Carla|42|DIFICIL|6|01/01/2026 10:00|30
+
+--- DEPOIS (versão atual) ---
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 2
+
+=== TOP 5 DO RANKING ===
+1. Carla | Pontos: 42 | Dif.: DIFICIL | Passageiros: 6 | 01/01/2026 10:00 | Tempo: 30s
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!
+
+--- ANTES (commit 687b5f1) ---
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 2
+Exception in thread "main" java.lang.NumberFormatException: For input string: "B"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:668)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at solidexercicio10.repository.RankingService.listar(RankingService.java:83)
+	at solidexercicio10.service.JogoService.exibirRanking(JogoService.java:422)
+	at solidexercicio10.service.JogoService.executarLoop(JogoService.java:40)
+	at solidexercicio10.Main.main(Main.java:20)

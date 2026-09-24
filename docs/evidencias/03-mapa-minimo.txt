@@ -1,0 +1,86 @@
+EVIDÊNCIA 03 - Ajuste do tamanho mínimo do mapa
+O que foi verificado: tamanho 1 no DIFICIL é ajustado para 2; tamanho 0 no FÁCIL (digitado com acento) é tratado como inválido e trocado pelo mínimo; o mapa mínimo não encerra o jogo.
+Versão: atual (working tree, HEAD ac75ffb); contagem compara com o commit 687b5f1
+Gerado em: 24/09/2026 18:53:39
+Entradas enviadas: 1, Teste, dificil, 1, <Enter>, q, 1, Teste, fácil, 0, <Enter>, q, 4
+========================================================================
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Teste
+Escolha a Dificuldade (facil/medio/dificil): dificil
+Tamanho do mapa (ex: 5): 1
+O tamanho mínimo para DIFICIL é 2; usando esse valor.
+
+Iniciando missão na dificuldade DIFICIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 15 | Piloto: Teste
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 👾 🔧 👾 ☄️
+  1|  .  . 👾 ☄️ ☄️
+  0|  . 🎓 🚀  . 🔧
+ -1|  . 🎓  .  . 🎓
+ -2|  . 🎓  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 15 | Vidas: 3 | A bordo: 0/6 | Restantes no mapa: 6 | Total: 6
+Comando (w/s/a/d/c/q): q
+Missão abortada pelo piloto.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Teste
+Escolha a Dificuldade (facil/medio/dificil): fácil
+Tamanho do mapa (ex: 5): 0
+Tamanho inválido, usando o tamanho mínimo disponível.
+
+Iniciando missão na dificuldade FACIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 30 | Piloto: Teste
+     -1  0  1
+     __ __ __
+  1| 🎓 🔧 🎓
+  0| 👾 🚀 🎓
+ -1| 👾 ☄️ ☄️
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): q
+Missão abortada pelo piloto.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!
+
+--- 100 partidas por dificuldade no mapa mínimo (tamanho 1, depois q) ---
+facil    ANTES:  18 de 100 encerradas por IllegalStateException | DEPOIS:   0 de 100
+medio    ANTES:   0 de 100 encerradas por IllegalStateException | DEPOIS:   0 de 100
+dificil  ANTES:   0 de 100 encerradas por IllegalStateException | DEPOIS:   0 de 100
