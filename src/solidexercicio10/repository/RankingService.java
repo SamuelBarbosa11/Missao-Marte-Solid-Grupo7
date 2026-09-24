@@ -76,7 +76,10 @@ public class RankingService implements RankingRepository {
       List<RankingEntry> ranking = new ArrayList<>();
       for (String linha : linhas) {
         String[] partes = linha.split("\\|");
-        if (partes.length >= 6) {
+        if (partes.length != 6) {
+          continue;
+        }
+        try {
           ranking.add(
             new RankingEntry(
               partes[0],
@@ -87,7 +90,7 @@ public class RankingService implements RankingRepository {
               Long.parseLong(partes[5])
             )
           );
-        }
+        } catch (NumberFormatException ignored) {}
       }
       ranking.sort(
         Comparator.comparingInt((RankingEntry entry) -> entry.score).reversed()
