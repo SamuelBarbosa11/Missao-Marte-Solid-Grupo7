@@ -1,0 +1,16 @@
+EVIDÊNCIA 06 - Teste automatizado dos limites dos inimigos
+O que foi verificado: inimigos nunca saem do mapa com Missao.moverInimigos(minX, maxX, minY, maxY).
+Versão: atual (working tree, HEAD ac75ffb)
+Gerado em: 24/09/2026 18:53:40
+Entradas enviadas: nenhuma (teste não interativo)
+========================================================================
+
+$ javac -encoding UTF-8 -d <tmp> src/solidexercicio10/model/*.java test/solidexercicio10/TesteLimitesInimigos.java
+(código de saída: 0)
+
+$ java -Dfile.encoding=UTF-8 -cp <tmp> solidexercicio10.TesteLimitesInimigos
+Rodadas: 20000 | Inimigos: 3 | Mapa: -5 a 5
+Antes  (tutorial):  59091 posições fora do mapa, maior distância da borda: 337
+Depois (corrigido): 0 posições fora do mapa, maior distância da borda: 0
+OK: nenhum inimigo saiu do mapa na versão corrigida.
+(código de saída: 0)

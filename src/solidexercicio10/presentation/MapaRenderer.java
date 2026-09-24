@@ -47,8 +47,6 @@ public class MapaRenderer {
         String symbol = ".";
         if (missao.getNave().getX() == x && missao.getNave().getY() == y) {
           symbol = missao.getNave().getSimbolo();
-        } else if (x == 0 && y == 0) {
-          symbol = "🔳";
         } else {
           for (Passageiro passageiro : missao.getPassageiros()) {
             if (passageiro.getX() == x && passageiro.getY() == y) {
@@ -71,6 +69,9 @@ public class MapaRenderer {
                 break;
               }
             }
+          }
+          if (symbol.equals(".") && x == 0 && y == 0) {
+            symbol = "🔳";
           }
         }
         System.out.printf(" %2s", symbol);

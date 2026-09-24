@@ -24,6 +24,11 @@ Na raiz do projeto, no Windows:
 run start
 ```
 
+No PowerShell (shell padrão do Windows Terminal), use `.\run start`: o
+PowerShell não executa scripts da pasta atual sem o prefixo `.\`. Para a
+demonstração, prefira o Windows Terminal, que exibe corretamente os emojis do
+mapa.
+
 O script cria a pasta `out`, configura UTF-8, compila os cinco pacotes de
 `solidexercicio10` e inicia `solidexercicio10.Main`.
 
@@ -208,6 +213,24 @@ pacotes e o `Main` ficou com 23 linhas.
 - O arquivo de ranking passou de `ranking.json` para
   `ranking-solid-exercicio10.json`.
 - Foi acrescentada a validação de tamanho mínimo do mapa por dificuldade.
+- As pontuações e a composição das partidas seguem o código de referência do
+  tutorial, e não o original. Pontos por passageiro: antes Professor 10,
+  Engenheiro 15 e Astronauta 20; agora 15, 20 e 10. Passageiros, asteroides e
+  inimigos: antes 4/1/1 no fácil, 5/2/2 no médio e 5/3/3 no difícil; agora
+  4/2/2, 5/2/2 e 6/3/3.
+- O original distribuía os passageiros em um ciclo de cinco posições
+  (Professor, Engenheiro, Professor, Engenheiro, Astronauta); a versão
+  refatorada alterna só Professor e Engenheiro, e Astronauta nunca aparece (ver
+  [REVISAO-SOLID.md](REVISAO-SOLID.md#criação-de-passageiros-fixa-no-serviço)).
+- O reset do ranking não pede mais confirmação (s/n).
+- A lista "Passageiros na superfície marciana", com nome, tipo e coordenadas
+  de cada passageiro, deixou de ser impressa abaixo do mapa.
+- Os inimigos passaram a se mover também na diagonal: o original sorteava uma
+  entre quatro direções; agora o sorteio é de -1 a 1 em cada eixo, o que
+  inclui ficar parado.
+- O ranking guarda todas as vitórias e exibe as cinco melhores; o original
+  gravava apenas o Top 5. O recorde e a mensagem de entrada no Top 5 continuam
+  aparecendo nas estatísticas de vitória, como no original.
 
 ## Decisões de projeto
 
@@ -239,7 +262,9 @@ pacotes e o `Main` ficou com 23 linhas.
 ```text
 src/exercicio10/          versão original preservada, para comparação
 src/solidexercicio10/     versão refatorada (Main, model, service, presentation, repository)
+test/solidexercicio10/    teste executável dos limites dos inimigos
 docs/uml/                 diagramas UML (.puml e .png)
+docs/evidencias/          transcrições das execuções de teste
 apostilas-solid/          material de apoio sobre cada princípio
 REVISAO-SOLID.md          revisão crítica da solução e testes realizados
 Atividade.md              enunciado e roteiro da atividade
@@ -255,9 +280,62 @@ run.cmd                   script de compilação e execução no Windows
 - [Divisao-Tarefas-Integrantes.md](Divisao-Tarefas-Integrantes.md) — divisão de
   responsabilidades da equipe.
 
-## Pendências desta entrega
+## Evidências de teste
 
-Seção exigida pelo enunciado que ainda precisa ser preenchida:
+A lista completa, com os comandos e resultados, está em
+[REVISAO-SOLID.md](REVISAO-SOLID.md#como-validei-a-solução), e as transcrições
+de cada execução, comparando a versão anterior às correções com a atual, estão
+em [`docs/evidencias/`](docs/evidencias/README.md). Em resumo:
 
-- **Limitações que permanecem** e consolidação das evidências de teste, a
-  partir do que já está em [REVISAO-SOLID.md](REVISAO-SOLID.md) (Rafael).
+| Verificação                                   | Como foi feita                                      | Resultado                                      |
+| --------------------------------------------- | --------------------------------------------------- | ---------------------------------------------- |
+| Compilação das duas versões                   | `javac` do original e da refatorada                 | Sem erros                                      |
+| Menu, partida, embarque, vitória, ranking e reset | Partidas manuais pelo `run start`               | Fluxo igual ao original                        |
+| Aborto com `q` e comando inválido             | Seis partidas no mapa mínimo, todas as células ocupadas | Nenhuma colisão depois do comando          |
+| Mapa menor que o necessário                   | Tamanho 0 e 1 no difícil                            | Ajuste automático para o mínimo, sem exceção   |
+| Mapa mínimo                                   | 100 partidas por dificuldade com tamanho 1          | Antes: 18 de 100 travavam no fácil; depois: 0  |
+| Dificuldade com acento                        | `fácil` e `difícil`                                 | Reconhecidas                                   |
+| Inimigo sobre a plataforma                    | Inimigo em (0,0) com a nave em outra casa           | Inimigo visível no mapa                        |
+| Limites dos inimigos                          | [`TesteLimitesInimigos`](test/solidexercicio10/TesteLimitesInimigos.java), 20.000 rodadas | Antes: ~59 mil posições fora do mapa; depois: 0 |
+| Recorde e Top 5 nas estatísticas              | Ranking vazio, pontuação acima e abaixo do 1º lugar | Mensagem correta nos três casos                |
+| Ranking com linhas malformadas                | Arquivo com nome contendo `\|` e pontuação inválida | Linhas inválidas ignoradas, ranking exibido    |
+
+Para repetir o teste de limites:
+
+```bash
+javac -encoding UTF-8 -d out-teste src/solidexercicio10/model/*.java test/solidexercicio10/TesteLimitesInimigos.java
+java -Dfile.encoding=UTF-8 -cp out-teste solidexercicio10.TesteLimitesInimigos
+```
+
+## Limitações que permanecem
+
+A refatoração resolveu os problemas de acoplamento do `Main` original, mas
+alguns pontos ficaram de fora do escopo desta entrega. Todos estão detalhados,
+com princípio e prioridade, em [REVISAO-SOLID.md](REVISAO-SOLID.md).
+
+- **Sem testes automatizados do fluxo.** `JogoService` lê do `Scanner` e
+  escreve em `System.out` diretamente, e a `Missao` sorteia com
+  `Math.random()`. Por isso o fluxo da partida só é verificado manualmente; o
+  único teste executável cobre o movimento dos inimigos.
+- **`JogoService` ainda concentra várias tarefas**: menu, leitura da entrada,
+  montagem da missão, pontuação e encerramento. Para o tamanho atual isso é
+  aceitável; se o jogo crescer, a criação da missão deveria ir para uma
+  `MissaoFactory`.
+- **Criação de passageiros fixa.** Embarque e pontuação são polimórficos, mas
+  o serviço sempre cria a mesma sequência de Professor e Engenheiro, e
+  `Astronauta` existe no modelo sem nunca aparecer no jogo.
+- **Tipo do passageiro guardado como texto**, sem vínculo com a classe real.
+- **Contratos maiores do que o uso.** `Nave` implementa `Movel` sem cliente para
+  `mover()`, `RankingRepository` tem uma sobrecarga de `salvar` que ninguém
+  chama e há métodos públicos sem uso em `JogoService`, `MapaRenderer` e `Nave`.
+- **Persistência simples.** O arquivo tem extensão `.json`, mas é texto
+  separado por `|`; ele guarda todas as vitórias (o original guardava só o
+  Top 5) e cresce sem limite. Falhas de leitura em `salvar` são ignoradas: se o
+  arquivo existir mas não puder ser lido (por exemplo, salvo em outra
+  codificação que não UTF-8), a próxima vitória sobrescreve o histórico.
+- **Mapa mínimo muito cheio.** No fácil com o tamanho mínimo (3x3), as oito
+  casas em volta da nave ficam ocupadas e um inimigo pode colidir já na
+  primeira rodada.
+- **Símbolos dependem do terminal.** Os emojis do mapa exigem um console com
+  UTF-8 e fonte com suporte a emoji (Windows Terminal, por exemplo); no
+  `cmd` antigo podem aparecer desalinhados.

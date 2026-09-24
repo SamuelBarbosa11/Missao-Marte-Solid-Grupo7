@@ -1,0 +1,601 @@
+EVIDÊNCIA 01 - Vitória, recorde e Top 5
+O que foi verificado: duas vitórias seguidas na mesma sessão; a 2ª mostra o recorde a ser batido (ou novo recorde) e ambas a mensagem de Top 5; depois o ranking é exibido.
+Versão: atual (working tree, HEAD ac75ffb)
+Gerado em: 24/09/2026 18:51:45
+Entradas enviadas: 1, Robo-1, facil, 2, <Enter>, a, c, w, w, a, c, d, s, w, s, d, w, d, c, s, s, d, c, a, a, 1, Robo-2, facil, 2, <Enter>, s, c, s, a, c, w, d, w, d, d, c, a, w, w, c, s, s, a, 2, 4
+  (comandos de jogo enviados pelo piloto automático; sessão aceita na tentativa 1, sessões com derrota foram descartadas inteiras)
+========================================================================
+
+================================================================
+             MISSÃO MARTE UNIFOR - VERSÃO SOLID                  
+================================================================
+  Pilote sua nave, salve os passageiros e desvie dos perigos!   
+================================================================
+
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Robo-1
+Escolha a Dificuldade (facil/medio/dificil): facil
+Tamanho do mapa (ex: 5): 2
+
+Iniciando missão na dificuldade FACIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 30 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🎓  .  . 🎓  .
+  1|  .  . 👾  .  .
+  0| ☄️ 🔧 🚀  . 🎓
+ -1|  .  .  .  .  .
+ -2|  . 👾  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+Mapa da Missão | Pontos: 29 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🎓  . 👾 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️ 🚀 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  . 👾  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,0) | Pontos: 29 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Eng. Rosa embarcado com sucesso! +20 pontos!
+
+Mapa da Missão | Pontos: 49 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🎓  .  . 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️ 🚀 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,0) | Pontos: 49 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 48 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🎓  .  . 🎓  .
+  1|  . 🚀 👾  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,1) | Pontos: 48 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 47 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🎓 🚀  . 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️  . 👾  . 🎓
+ -1|  . 👾  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,2) | Pontos: 47 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+Mapa da Missão | Pontos: 46 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🚀  .  . 🎓  .
+  1|  .  .  . 👾  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  . 👾  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-2,2) | Pontos: 46 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Lima embarcado com sucesso! +15 pontos!
+
+Mapa da Missão | Pontos: 61 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 🚀  .  . 🎓  .
+  1|  .  . 👾  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-2,2) | Pontos: 61 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 60 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 🚀 👾 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,2) | Pontos: 60 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 59 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  .  .  . 🎓  .
+  1|  . 🚀  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,1) | Pontos: 59 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 58 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 🚀 👾 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  . 👾  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,2) | Pontos: 58 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 57 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 👾  . 🎓  .
+  1|  . 🚀  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  . 👾  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,1) | Pontos: 57 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 56 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  .  . 🎓  .
+  1|  .  . 🚀  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,1) | Pontos: 56 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 55 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  . 🚀 🎓  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,2) | Pontos: 55 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 54 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  .  . 🚀  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  . 👾 ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,2) | Pontos: 54 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Silva embarcado com sucesso! +15 pontos!
+
+Mapa da Missão | Pontos: 69 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 👾  . 🚀  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,2) | Pontos: 69 | Vidas: 3 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 68 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  . 👾  .  .  .
+  1|  .  .  . 🚀  .
+  0| ☄️  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️ 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,1) | Pontos: 68 | Vidas: 3 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 67 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  .  .  .  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳 🚀 🎓
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️ 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,0) | Pontos: 67 | Vidas: 3 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 66 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  .  .  .  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🚀
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (2,0) | Pontos: 66 | Vidas: 3 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Silva embarcado com sucesso! +15 pontos!
+✨ ALERTA: Todos os passageiros resgatados! Retorne para a Plataforma de Pouso '🔳' em (0,0) para completar a missão.
+
+Mapa da Missão | Pontos: 81 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| 👾  .  .  .  .
+  1|  .  .  .  .  .
+  0| ☄️  . 🔳  . 🚀
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️ 👾
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (2,0) | Pontos: 81 | Vidas: 3 | A bordo: 4/4 | Restantes no mapa: 0 | Total: 4
+Comando (w/s/a/d/c/q): a
+✨ ALERTA: Todos os passageiros resgatados! Retorne para a Plataforma de Pouso '🔳' em (0,0) para completar a missão.
+
+Mapa da Missão | Pontos: 80 | Piloto: Robo-1
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2|  .  .  .  .  .
+  1|  . 👾  .  .  .
+  0| ☄️  . 🔳 🚀  .
+ -1|  .  .  .  .  .
+ -2|  .  .  . ☄️  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,0) | Pontos: 80 | Vidas: 3 | A bordo: 4/4 | Restantes no mapa: 0 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+================================================================
+🚀 DECOLAGEM AUTORIZADA! Nave acoplada à plataforma em (0,0).
+Retornando à órbita marciana com todos os passageiros. Missão cumprida!
+================================================================
+
+
+=== ESTATÍSTICAS DA MISSÃO ===
+Pontuação final: 79
+Movimentos realizados: 16
+Tempo de missão: 0 segundos
+Passageiros resgatados: 4
+Parabéns! Você entrou para o Top 5 de pilotos!
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 1
+
+Digite o nome do piloto: Robo-2
+Escolha a Dificuldade (facil/medio/dificil): facil
+Tamanho do mapa (ex: 5): 2
+
+Iniciando missão na dificuldade FACIL...
+Pressione Enter para decolar!
+
+Mapa da Missão | Pontos: 30 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  . 👾 🚀  . 🎓
+ -1|  .  . 🔧  .  .
+ -2|  . 🎓  . 👾  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 30 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 29 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  . 👾  .  .
+  0|  .  . 🔳  . 🎓
+ -1|  .  . 🚀 👾  .
+ -2|  . 🎓  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,-1) | Pontos: 29 | Vidas: 3 | A bordo: 0/4 | Restantes no mapa: 4 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Eng. Rosa embarcado com sucesso! +20 pontos!
+
+Mapa da Missão | Pontos: 49 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳  . 🎓
+ -1|  .  . 🚀  .  .
+ -2|  . 🎓  . 👾  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,-1) | Pontos: 49 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): s
+
+Mapa da Missão | Pontos: 48 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  . 👾 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳  . 🎓
+ -1|  .  .  .  . 👾
+ -2|  . 🎓 🚀  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,-2) | Pontos: 48 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+Mapa da Missão | Pontos: 47 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️ 👾  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳 👾 🎓
+ -1|  .  .  .  .  .
+ -2|  . 🚀  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,-2) | Pontos: 47 | Vidas: 3 | A bordo: 1/4 | Restantes no mapa: 3 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Lima embarcado com sucesso! +15 pontos!
+
+Mapa da Missão | Pontos: 62 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  . 👾  .  .
+  0|  .  . 🔳  . 🎓
+ -1|  .  .  .  .  .
+ -2|  . 🚀  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,-2) | Pontos: 62 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 61 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳 👾 🎓
+ -1|  . 🚀  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (-1,-1) | Pontos: 61 | Vidas: 3 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+Alerta! Colisão detectada! Vidas restantes: 2
+
+Mapa da Missão | Pontos: 60 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳  . 🎓
+ -1|  .  . 🚀  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,-1) | Pontos: 60 | Vidas: 2 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 59 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️ 👾  . 🎓 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🚀  . 🎓
+ -1|  .  .  . 👾  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (0,0) | Pontos: 59 | Vidas: 2 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 58 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  . 👾  .  .
+  0|  .  . 🔳 🚀 🎓
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,0) | Pontos: 58 | Vidas: 2 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): d
+
+Mapa da Missão | Pontos: 57 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️ 👾  . 🎓 ☄️
+  1|  .  .  .  . 👾
+  0|  .  . 🔳  . 🚀
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (2,0) | Pontos: 57 | Vidas: 2 | A bordo: 2/4 | Restantes no mapa: 2 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Silva embarcado com sucesso! +15 pontos!
+
+Mapa da Missão | Pontos: 72 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️ 👾  . 🎓 ☄️
+  1|  .  .  .  . 👾
+  0|  .  . 🔳  . 🚀
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (2,0) | Pontos: 72 | Vidas: 2 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+Mapa da Missão | Pontos: 71 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  . 👾  .  .  .
+  0|  .  . 🔳 🚀 👾
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,0) | Pontos: 71 | Vidas: 2 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 70 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🎓 ☄️
+  1|  .  .  . 🚀  .
+  0|  .  . 🔳  . 👾
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,1) | Pontos: 70 | Vidas: 2 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): w
+
+Mapa da Missão | Pontos: 69 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 🚀 ☄️
+  1|  .  .  .  .  .
+  0|  .  . 🔳  . 👾
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,2) | Pontos: 69 | Vidas: 2 | A bordo: 3/4 | Restantes no mapa: 1 | Total: 4
+Comando (w/s/a/d/c/q): c
+Passageiro Dr. Silva embarcado com sucesso! +15 pontos!
+✨ ALERTA: Todos os passageiros resgatados! Retorne para a Plataforma de Pouso '🔳' em (0,0) para completar a missão.
+
+Mapa da Missão | Pontos: 84 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️ 👾  . 🚀 ☄️
+  1|  .  .  .  . 👾
+  0|  .  . 🔳  .  .
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,2) | Pontos: 84 | Vidas: 2 | A bordo: 4/4 | Restantes no mapa: 0 | Total: 4
+Comando (w/s/a/d/c/q): s
+✨ ALERTA: Todos os passageiros resgatados! Retorne para a Plataforma de Pouso '🔳' em (0,0) para completar a missão.
+
+Mapa da Missão | Pontos: 83 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  . 👾 ☄️
+  1|  .  .  . 🚀  .
+  0|  .  . 🔳  .  .
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,1) | Pontos: 83 | Vidas: 2 | A bordo: 4/4 | Restantes no mapa: 0 | Total: 4
+Comando (w/s/a/d/c/q): s
+✨ ALERTA: Todos os passageiros resgatados! Retorne para a Plataforma de Pouso '🔳' em (0,0) para completar a missão.
+
+Mapa da Missão | Pontos: 82 | Piloto: Robo-2
+     -2 -1  0  1  2
+     __ __ __ __ __
+  2| ☄️  .  .  . ☄️
+  1| 👾  .  . 👾  .
+  0|  .  . 🔳 🚀  .
+ -1|  .  .  .  .  .
+ -2|  .  .  .  .  .
+Legenda: 🚀=Nave, 🔳=Plataforma, 🎓=Professor, 🔧=Engenheiro, 🔭=Astronauta, ☄️=Asteroide, 👾=Inimigo, .=Vazio
+Comandos: w/s/a/d (mover), c (embarcar), q (sair)
+Nave em (1,0) | Pontos: 82 | Vidas: 2 | A bordo: 4/4 | Restantes no mapa: 0 | Total: 4
+Comando (w/s/a/d/c/q): a
+
+================================================================
+🚀 DECOLAGEM AUTORIZADA! Nave acoplada à plataforma em (0,0).
+Retornando à órbita marciana com todos os passageiros. Missão cumprida!
+================================================================
+
+
+=== ESTATÍSTICAS DA MISSÃO ===
+Pontuação final: 81
+Movimentos realizados: 14
+Tempo de missão: 0 segundos
+Passageiros resgatados: 4
+🏆 Novo recorde absoluto do sistema!
+Parabéns! Você entrou para o Top 5 de pilotos!
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 2
+
+=== TOP 5 DO RANKING ===
+1. Robo-2 | Pontos: 81 | Dif.: FACIL | Passageiros: 4 | 24/09/2026 18:51 | Tempo: 0s
+2. Robo-1 | Pontos: 79 | Dif.: FACIL | Passageiros: 4 | 24/09/2026 18:51 | Tempo: 0s
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Ranking
+4. Sair
+----------------------
+Escolha uma opção: 4
+
+Obrigado por jogar a Missão Marte Unifor!

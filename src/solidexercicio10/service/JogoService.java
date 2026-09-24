@@ -1,5 +1,6 @@
 package solidexercicio10.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -126,7 +127,7 @@ public class JogoService {
       char cmd = entrada.charAt(0);
       if (cmd == 'q') {
         System.out.println("Missão abortada pelo piloto.");
-        partidaAtiva = false;
+        break;
       } else if (cmd == 'c') {
         Passageiro passageiro = missao.passagemNaPosicao();
         if (passageiro == null) {
@@ -152,6 +153,7 @@ public class JogoService {
         movimentos++;
       } else {
         System.out.println("Comando inválido.");
+        continue;
       }
 
       missao.moverInimigos(minX, maxX, minY, maxY);
@@ -189,11 +191,13 @@ public class JogoService {
           System.out.println(
             "================================================================\n"
           );
+          List<RankingEntry> ranking = rankingRepository.listar();
           exibirEstatisticas(
             score,
             movimentos,
             tempoJogoSegundos,
-            nave.getPassageiros().size()
+            nave.getPassageiros().size(),
+            ranking
           );
           rankingRepository.salvar(
             pilotoNome,
@@ -202,6 +206,9 @@ public class JogoService {
             nave.getPassageiros().size(),
             tempoJogoSegundos
           );
+          if (entraNoTop5(ranking, score)) {
+            System.out.println("Parabéns! Você entrou para o Top 5 de pilotos!");
+          }
           partidaAtiva = false;
         } else {
           System.out.println(
@@ -381,22 +388,22 @@ public class JogoService {
     int maxY,
     Nave nave
   ) {
-    int tentativasMaximas = Math.max(
-      20,
-      (maxX - minX + 1) * (maxY - minY + 1) * 2
-    );
-    for (int tentativa = 0; tentativa < tentativasMaximas; tentativa++) {
-      int x = random.nextInt(maxX - minX + 1) + minX;
-      int y = random.nextInt(maxY - minY + 1) + minY;
-      if (
-        !posicaoOcupada(missao, x, y) && !(x == nave.getX() && y == nave.getY())
-      ) {
-        return new int[] { x, y };
+    List<int[]> livres = new ArrayList<>();
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
+        if (
+          !posicaoOcupada(missao, x, y) && !(x == nave.getX() && y == nave.getY())
+        ) {
+          livres.add(new int[] { x, y });
+        }
       }
     }
-    throw new IllegalStateException(
-      "O mapa nao possui posicoes livres suficientes"
-    );
+    if (livres.isEmpty()) {
+      throw new IllegalStateException(
+        "O mapa nao possui posicoes livres suficientes"
+      );
+    }
+    return livres.get(random.nextInt(livres.size()));
   }
 
   private boolean posicaoOcupada(Missao missao, int x, int y) {
@@ -444,13 +451,32 @@ public class JogoService {
     int score,
     int movimentos,
     long tempoJogoSegundos,
-    int passageirosColetados
+    int passageirosColetados,
+    List<RankingEntry> ranking
   ) {
     System.out.println("\n=== ESTATÍSTICAS DA MISSÃO ===");
     System.out.printf("Pontuação final: %d%n", score);
     System.out.printf("Movimentos realizados: %d%n", movimentos);
     System.out.printf("Tempo de missão: %d segundos%n", tempoJogoSegundos);
     System.out.printf("Passageiros resgatados: %d%n", passageirosColetados);
+
+    if (ranking.isEmpty()) {
+      return;
+    }
+    RankingEntry recorde = ranking.get(0);
+    if (score > recorde.score) {
+      System.out.println("🏆 Novo recorde absoluto do sistema!");
+    } else {
+      System.out.printf(
+        "Recorde atual a ser batido: %d pontos (Piloto: %s)%n",
+        recorde.score,
+        recorde.name
+      );
+    }
+  }
+
+  private boolean entraNoTop5(List<RankingEntry> ranking, int score) {
+    return ranking.size() < 5 || score > ranking.get(4).score;
   }
 
   private String lerLinha(
