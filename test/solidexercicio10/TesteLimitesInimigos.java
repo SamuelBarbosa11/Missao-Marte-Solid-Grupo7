@@ -52,7 +52,7 @@ public class TesteLimitesInimigos {
   }
 
   private static Resultado executar(boolean comLimites) {
-    Missao missao = new Missao(new Nave("Teste", 0, 0));
+    Missao missao = new Missao(new Nave("Teste", 0, 0, 0));
     missao.adicionarInimigo(new Inimigo(MAX, MAX));
     missao.adicionarInimigo(new Inimigo(MIN, MIN));
     missao.adicionarInimigo(new Inimigo(MAX, MIN));
