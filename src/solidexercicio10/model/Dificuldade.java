@@ -9,8 +9,10 @@ public enum Dificuldade {
     if (valor == null) return MEDIO;
     switch (valor.toLowerCase()) {
       case "facil":
+      case "fácil":
         return FACIL;
       case "dificil":
+      case "difícil":
         return DIFICIL;
       default:
         return MEDIO;
