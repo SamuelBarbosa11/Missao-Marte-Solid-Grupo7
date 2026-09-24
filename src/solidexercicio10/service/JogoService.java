@@ -190,11 +190,13 @@ public class JogoService {
           System.out.println(
             "================================================================\n"
           );
+          List<RankingEntry> ranking = rankingRepository.listar();
           exibirEstatisticas(
             score,
             movimentos,
             tempoJogoSegundos,
-            nave.getPassageiros().size()
+            nave.getPassageiros().size(),
+            ranking
           );
           rankingRepository.salvar(
             pilotoNome,
@@ -203,6 +205,9 @@ public class JogoService {
             nave.getPassageiros().size(),
             tempoJogoSegundos
           );
+          if (entraNoTop5(ranking, score)) {
+            System.out.println("Parabéns! Você entrou para o Top 5 de pilotos!");
+          }
           partidaAtiva = false;
         } else {
           System.out.println(
@@ -445,13 +450,32 @@ public class JogoService {
     int score,
     int movimentos,
     long tempoJogoSegundos,
-    int passageirosColetados
+    int passageirosColetados,
+    List<RankingEntry> ranking
   ) {
     System.out.println("\n=== ESTATÍSTICAS DA MISSÃO ===");
     System.out.printf("Pontuação final: %d%n", score);
     System.out.printf("Movimentos realizados: %d%n", movimentos);
     System.out.printf("Tempo de missão: %d segundos%n", tempoJogoSegundos);
     System.out.printf("Passageiros resgatados: %d%n", passageirosColetados);
+
+    if (ranking.isEmpty()) {
+      return;
+    }
+    RankingEntry recorde = ranking.get(0);
+    if (score > recorde.score) {
+      System.out.println("🏆 Novo recorde absoluto do sistema!");
+    } else {
+      System.out.printf(
+        "Recorde atual a ser batido: %d pontos (Piloto: %s)%n",
+        recorde.score,
+        recorde.name
+      );
+    }
+  }
+
+  private boolean entraNoTop5(List<RankingEntry> ranking, int score) {
+    return ranking.size() < 5 || score > ranking.get(4).score;
   }
 
   private String lerLinha(
