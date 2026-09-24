@@ -24,10 +24,18 @@ Registre os comandos executados e os fluxos testados:
 - [x] consulta e reset do ranking;
 - [x] execução pelo `run.cmd start` e saída imediata;
 - [x] teste de mapa insuficiente na dificuldade difícil, corrigido com tamanho mínimo automático;
-- [x] teste de limites dos inimigos: 20.000 rodadas com 3 inimigos em um mapa de -5 a 5, comparando a versão anterior e a corrigida. Antes: 59.912 posições fora do mapa e um inimigo a 159 casas da área jogável. Depois: 0 posições fora do mapa. O teste está versionado em [`test/solidexercicio10/TesteLimitesInimigos.java`](test/solidexercicio10/TesteLimitesInimigos.java) e pode ser repetido com os comandos da seção "Como executar o teste de limites"; como o sorteio é aleatório, os números do "antes" variam a cada execução (sempre acima de 59.000 posições fora do mapa), enquanto o "depois" é sempre 0;
+- [x] teste de limites dos inimigos: 20.000 rodadas com 3 inimigos em um mapa de -5 a 5, comparando a versão anterior e a corrigida. Antes: 59.912 posições fora do mapa e um inimigo a 159 casas da área jogável. Depois: 0 posições fora do mapa. O teste está versionado em [`test/solidexercicio10/TesteLimitesInimigos.java`](test/solidexercicio10/TesteLimitesInimigos.java) e pode ser repetido com os comandos da seção "Como executar o teste de limites"; como o sorteio é aleatório, os números do "antes" variam a cada execução (em torno de 59 mil posições fora do mapa), enquanto o "depois" é sempre 0;
+- [x] mapa mínimo: 100 partidas por dificuldade com tamanho 1. Antes da correção do sorteio, 18 de 100 partidas no fácil encerravam com `IllegalStateException`; depois, 0 de 100 em todas as dificuldades;
+- [x] dificuldade digitada com acento (`fácil`, `difícil`) reconhecida corretamente;
+- [x] inimigo parado em (0,0) com a nave em outra casa: o mapa mostra o inimigo, e não a plataforma;
 - [x] reteste do aborto com `q` e de comandos inválidos após a correção: seis partidas no fácil com mapa mínimo (3x3, todas as células ocupadas) enviando três comandos inválidos e `q`, sem nenhuma colisão registrada depois do comando;
 - [x] estatísticas de vitória com recorde: ranking vazio (sem recorde exibido), pontuação acima do primeiro colocado ("Novo recorde absoluto") e pontuação abaixo ("Recorde atual a ser batido"), além da mensagem de entrada no Top 5;
+- [x] partidas completas até a vitória depois de todas as correções: oito partidas no fácil com mapa 5x5, seis vitórias e duas derrotas por colisão; recorde, novo recorde, Top 5 e ordenação do ranking conferidos em cada vitória;
 - [x] leitura do ranking com linhas malformadas (nome contendo `|` e pontuação não numérica): as linhas inválidas são ignoradas e o ranking válido continua sendo exibido.
+
+As transcrições das execuções, comparando a versão anterior às correções
+(commit `687b5f1`) com a atual, estão em
+[`docs/evidencias/`](docs/evidencias/README.md).
 
 ### Como executar o teste de limites
 
@@ -80,6 +88,39 @@ Proposta: consultar o ranking pelo RankingRepository antes de salvar a partida e
 Prioridade: média
 ```
 
+### Mapa mínimo encerrava o jogo em parte das partidas (corrigido)
+
+```text
+Local: JogoService.sortearPosicaoLivre
+Princípio relacionado: preservação de comportamento e robustez da regra de negócio
+Observação: a validação de tamanho mínimo garante casas suficientes, mas no fácil com o mapa mínimo (3x3) sobram exatamente 8 casas para 8 entidades. O sorteio tentava posições ao acaso e desistia após 20 tentativas; para a última casa livre, a chance de errar as 20 é de cerca de 10%.
+Impacto: a melhoria que deveria impedir a IllegalStateException não a impedia por completo. Em 100 partidas no fácil com mapa mínimo, 18 encerraram o programa.
+Proposta: listar as casas livres e sortear uma delas. A distribuição continua aleatória e a exceção só ocorre se realmente não houver casa livre, o que o tamanho mínimo já impede.
+Prioridade: alta
+```
+
+### Plataforma escondia inimigo em (0,0) (corrigido)
+
+```text
+Local: presentation.MapaRenderer.desenhar
+Princípio relacionado: SRP
+Observação: a plataforma era desenhada antes das entidades. Um inimigo que parasse em (0,0) ficava invisível e só se revelava ao colidir com a nave no retorno à base. O exercicio10 desenhava a plataforma apenas quando a casa estava vazia.
+Impacto: o jogador perdia vida por um perigo que a tela não mostrava. É uma decisão de apresentação, então a correção fica apenas no renderizador.
+Proposta: desenhar a plataforma somente quando nenhuma entidade ocupa a casa.
+Prioridade: média
+```
+
+### Dificuldade com acento ignorada (corrigido)
+
+```text
+Local: model.Dificuldade.deString
+Princípio relacionado: preservação de comportamento na refatoração
+Observação: o original aceitava "fácil" e "difícil"; a versão do tutorial só reconhecia a grafia sem acento, e qualquer outra entrada virava MEDIO sem aviso.
+Impacto: o jogador que digita com acento joga em outra dificuldade sem perceber.
+Proposta: aceitar as duas grafias, como no original.
+Prioridade: baixa
+```
+
 ### Leitura do ranking frágil a linhas malformadas (corrigido)
 
 ```text
@@ -102,15 +143,26 @@ Proposta: remover as duas sobrecargas, o construtor sem capacidade e o bloco ina
 Prioridade: baixa
 ```
 
-### Mapa pequeno e posições insuficientes
+### Mapa pequeno e posições insuficientes (corrigido)
 
 ```text
 Local: JogoService.lerTamanhoMapa e criação da missão
 Princípio relacionado: SRP e robustez da regra de negócio
 Observação: mapas pequenos não comportavam todos os passageiros e perigos e causavam IllegalStateException.
 Impacto: a aplicação encerrava durante o início da missão, sem permitir ao usuário jogar.
-Proposta: calcular o tamanho mínimo por dificuldade e ajustar entradas menores antes da geração aleatória.
+Proposta: calcular o tamanho mínimo por dificuldade e ajustar entradas menores antes da geração aleatória. Esta correção sozinha não bastou no fácil; o complemento está no achado "Mapa mínimo encerrava o jogo em parte das partidas".
 Prioridade: alta
+```
+
+### Mudanças de comportamento herdadas do código de referência (mantidas e documentadas)
+
+```text
+Local: código de referência do tutorial (src/README.md) incorporado em model e service
+Princípio relacionado: preservação de comportamento na refatoração
+Observação: além das regressões corrigidas acima, o código de referência trouxe mudanças que não são defeitos, mas alteram o jogo em relação ao exercicio10: pontos por passageiro (Professor 10 → 15, Engenheiro 15 → 20, Astronauta 20 → 10); passageiros, asteroides e inimigos por dificuldade (fácil 4/1/1 → 4/2/2, difícil 5/3/3 → 6/3/3); Astronauta fora da distribuição; reset do ranking sem a confirmação (s/n); inimigos andando também na diagonal ou ficando parados, em vez de um passo em uma de quatro direções; e a lista "Passageiros na superfície marciana", com nome, tipo e coordenadas, que era impressa abaixo do mapa e deixou de existir.
+Impacto: quem compara as duas versões encontra um jogo com equilíbrio diferente. Nenhuma dessas mudanças quebra uma regra, mas a do reset remove uma proteção contra apagar o histórico por engano, e a da lista tira do jogador a única forma de localizar um passageiro escondido sob a nave.
+Proposta: manter os valores do tutorial, que fazem parte da solução seguida, e documentá-los no README (seção "Mudanças de comportamento visíveis"). Se houver nova iteração, as primeiras a voltar seriam a confirmação do reset, por ser uma operação destrutiva, e a lista de passageiros, que é só apresentação e caberia no MapaRenderer.
+Prioridade: baixa
 ```
 
 ### Responsabilidade do serviço
@@ -219,3 +271,13 @@ entrada no Top 5; para isso, `JogoService` consulta `RankingRepository.listar()`
 antes de salvar a partida, sem passar a conhecer o arquivo. A leitura do
 ranking também passou a ignorar linhas malformadas em vez de encerrar o
 programa.
+
+A própria validação do tamanho mínimo precisou de um complemento: o mapa
+mínimo do fácil fica com todas as casas ocupadas, e o sorteio por tentativas
+ainda encerrava entre 11 e 18 de cada 100 partidas nas medições. Sortear entre
+as casas livres eliminou a falha. Também foram restauradas duas regras do
+original: a plataforma não esconde mais um inimigo em (0,0), e a dificuldade
+digitada com acento volta a ser reconhecida.
+
+As transcrições de cada verificação estão em
+[`docs/evidencias/`](docs/evidencias/README.md).
